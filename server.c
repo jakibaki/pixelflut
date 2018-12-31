@@ -22,7 +22,7 @@ typedef struct
 {
 	server_t *server;
 	int socket;
-	atomic_bool lock;
+	atomic_flag lock;
 
 	struct timespec last_msg_time;
 

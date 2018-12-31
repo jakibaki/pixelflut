@@ -17,10 +17,15 @@ CFLAGS_PI = -c -O3 -march=native -DUSE_OPENGL -DUSE_EGL -DIS_RPI -DSTANDALONE -D
 # main_pi.o: main_pi.c
 	# $(CC) $(CFLAGS_PI) $< -o $@
 
-
-
-LDFLAGS_SDL = `pkg-config --libs sdl2` -lm -ldl -lGL -lpthread -O3 -flto -fomit-frame-pointer
+LDFLAGS_SDL = `pkg-config --libs sdl2` -lm -ldl -lpthread -O3 -flto -fomit-frame-pointer
 CFLAGS_SDL = -Wall -Wextra -Werror -pedantic -std=c11 -c `pkg-config --cflags sdl2` -O3 -flto -march=native -fomit-frame-pointer
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    CFLAGS_SDL += -framework OpenGL
+else
+	CFLAGS_SDL += -lGL
+endif
 
 # sdl: $(EXE_SDL)
 all: $(EXE_SDL)
