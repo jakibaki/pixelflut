@@ -130,7 +130,7 @@ static command_status_t command_handler(client_connection_t *client, char *cmd)
 	else if(!strncmp(cmd, "SIZE", 4))
 	{
 		char out[32];
-		int l = sprintf(out, "SIZE %d %d\n", framebuffer->width, framebuffer->height);
+		int l = sprintf(out, "SIZE %u %u\n", framebuffer->width, framebuffer->height);
 		send(client->socket, out, l, MSG_DONTWAIT | MSG_NOSIGNAL);
 		return COMMAND_SUCCESS;
 	}
