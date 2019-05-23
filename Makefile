@@ -33,7 +33,7 @@ all: $(EXE_SDL)
 $(EXE_SDL): main.o
 	$(CC) -o $@ main.o $(LDFLAGS_SDL)
 
-main.o: main.c
+main.o: main.c commandhandler.c framebuffer.c histogram.c server.c
 	$(CC) $(CFLAGS_SDL) $< -o $@
 
 
