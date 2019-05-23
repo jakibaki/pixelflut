@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/time.h>
@@ -48,7 +49,7 @@ struct server_t
 	server_flags_t flags;
 	int fade_interval;
 
-	volatile int running;
+	volatile bool running;
 	int frame;
 	uint32_t pixels_received_per_second;
 	struct timespec prev_second;
@@ -256,14 +257,14 @@ static int server_start(
 	server->threads = threads;
 	server->flags = flags;
 	server->fade_interval = fade_interval;
-	server->running = 1;
+	server->running = true;
 	server->frame = 0;
 
 	server->connections = calloc(max_connections, sizeof(client_connection_t));
 	if (!server->connections)
 	{
 		perror("could not allocate max connections");
-		server->running = 0;
+		server->running = false;
 		return 0;
 	}
 	server->connection_capacity = max_connections;
@@ -278,7 +279,7 @@ static int server_start(
 	if (pthread_create(&server->listen_thread, NULL, server_listen_thread, server) < 0)
 	{
 		perror("could not create listen thread");
-		server->running = 0;
+		server->running = false;
 		free(server->connections);
 		framebuffer_free(&server->framebuffer);
 		return 0;
@@ -296,7 +297,7 @@ static int server_start(
 
 static void server_stop(server_t *server)
 {
-	server->running = 0;
+	server->running = false;
 	close(server->socket);
 
 	printf("Closing %d client connections ...\n", server->connection_count);
