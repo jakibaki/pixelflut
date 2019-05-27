@@ -242,7 +242,7 @@ static void *server_listen_thread(void *param)
 	}
 	close(server->socket);
 
-	printf("Ended listenting.\n");
+	printf("Ended listening.\n");
 	return 0;
 }
 
