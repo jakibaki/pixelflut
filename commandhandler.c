@@ -50,7 +50,6 @@ static command_status_t command_handler(client_connection_t *client, char *cmd)
 	framebuffer_t *framebuffer = &server->framebuffer;
 	if(cmd[0] == 'C' && cmd[1] == 'C' && cmd[2] == ' ')
 	{
-        printf("Hohoho?\n");
 		char *pos1 = cmd + 3;
 		int x = atoi_simple(cmd + 3, &pos1);
 		if (cmd == pos1)
