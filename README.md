@@ -12,7 +12,6 @@ Every x86 dual-core with a little bit of graphics power (for 2D SDL) should work
 - Supported commands:
   - send pixel: 'CC {x} {y} {GG or RRGGBB or RRGGBBAA as HEX}\n'
   - set offset for future pixels: 'OFFSET {x} {y}\n'
-  - request pixel color: 'CC {x} {y}\n'
   - request output resolution: 'SIZE\n'
   - request client connection count: 'CONNECTIONS\n'
   - request help message with all commands: 'HELP\n'
