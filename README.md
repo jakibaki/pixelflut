@@ -1,5 +1,5 @@
 # Pixelflut
-Fast pixelflut server written in C. It is a collaborative coding game. See https://cccgoe.de/wiki/Pixelflut for details about the game itself. In short: project the pixelflut server output onto a wall where many people can see it. Connected clients can then set single pixels by sending a string like "PX [x] [y] [color]\n" (e.g. "PX 100 300 00FF12\n") to its TCP socket. Use netcat, python or whatever you want.
+Fast pixelflut server written in C. It is a collaborative coding game. See https://cccgoe.de/wiki/Pixelflut for details about the game itself. In short: project the pixelflut server output onto a wall where many people can see it. Connected clients can then set single pixels by sending a string like "CC [x] [y] [color]\n" (e.g. "CC 100 300 00FF12\n") to its TCP socket. Use netcat, python or whatever you want.
 
 ## Hardware requirements
 Every x86 dual-core with a little bit of graphics power (for 2D SDL) should work. On an Core i3-4010U you can easily utilize a 1 GBit Nic. On large events, 10 GBit fiber and a few more CPU-Cores are even more fun. On real server hardware you want to add a graphics card. One thread per CPU-Core seems to be a good rule of thumb.
@@ -10,9 +10,9 @@ Every x86 dual-core with a little bit of graphics power (for 2D SDL) should work
 - Serves real-time WebGL histogram and help text to browsers (same TCP port)
 - Optional fade to black for old pixels to encourage pixel refreshes
 - Supported commands:
-  - send pixel: 'PX {x} {y} {GG or RRGGBB or RRGGBBAA as HEX}\n'
+  - send pixel: 'CC {x} {y} {GG or RRGGBB or RRGGBBAA as HEX}\n'
   - set offset for future pixels: 'OFFSET {x} {y}\n'
-  - request pixel color: 'PX {x} {y}\n'
+  - request pixel color: 'CC {x} {y}\n'
   - request output resolution: 'SIZE\n'
   - request client connection count: 'CONNECTIONS\n'
   - request help message with all commands: 'HELP\n'

@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	int width = 0;
 	int height = 0;
 	uint16_t port = 1234;
-	int connection_timeout = 5;
+	int connection_timeout = 5000;
 	int connections_max = 1000;
 	int threads = 4;
 	int serve_histogram = 1;
@@ -161,7 +161,7 @@ int main(int argc, char **argv)
 		if (serve_histogram)
 			snprintf(text_additional, sizeof(text_additional), "http://%s:%d", hostname_or_ip, port);
 		else
-			snprintf(text_additional, sizeof(text_additional), "echo \"PX <X> <Y> <RRGGBB>\\n\" > nc %s %d", hostname_or_ip, port);
+			snprintf(text_additional, sizeof(text_additional), "echo \"CC <X> <Y> <RRGGBB>\\n\" > nc %s %d", hostname_or_ip, port);
 	}
 
 	while("the cat is sleeping on the keyboard")

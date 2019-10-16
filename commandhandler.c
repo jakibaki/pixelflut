@@ -48,8 +48,9 @@ static command_status_t command_handler(client_connection_t *client, char *cmd)
 {
 	server_t *server = client->server;
 	framebuffer_t *framebuffer = &server->framebuffer;
-	if(cmd[0] == 'P' && cmd[1] == 'X' && cmd[2] == ' ')
+	if(cmd[0] == 'C' && cmd[1] == 'C' && cmd[2] == ' ')
 	{
+        printf("Hohoho?\n");
 		char *pos1 = cmd + 3;
 		int x = atoi_simple(cmd + 3, &pos1);
 		if (cmd == pos1)
@@ -82,7 +83,7 @@ static command_status_t command_handler(client_connection_t *client, char *cmd)
 		{
 			char colorout[30];
 			uint8_t *pixel = framebuffer->pixels + (y * framebuffer->width + x) * framebuffer->bytesPerPixel; // RGB(A)
-			snprintf(colorout, sizeof(colorout), "PX %d %d %02x%02x%02x\n", x, y, pixel[0], pixel[1], pixel[2]);
+			snprintf(colorout, sizeof(colorout), "CC %d %d %02x%02x%02x\n", x, y, pixel[0], pixel[1], pixel[2]);
 			send(client->socket, colorout, strlen(colorout), MSG_DONTWAIT | MSG_NOSIGNAL);
 			return COMMAND_SUCCESS;
 		}
@@ -144,9 +145,9 @@ static command_status_t command_handler(client_connection_t *client, char *cmd)
 	else if(!strncmp(cmd, "HELP", 4))
 	{
 		static const char out[] =
-			"send pixel: 'PX {x} {y} {GG or RRGGBB or RRGGBBAA as HEX}\\n'; "
+			"send pixel: 'CC {x} {y} {GG or RRGGBB or RRGGBBAA as HEX}\\n'; "
 			"set offset for future pixels: 'OFFSET {x} {y}\\n'; "
-			"request pixel: 'PX {x} {y}\\n'; "
+			"request pixel: 'CC {x} {y}\\n'; "
 			"request resolution: 'SIZE\\n'; "
 			"request client connection count: 'CONNECTIONS\\n'; "
 			"request this help message: 'HELP\\n';\n";
